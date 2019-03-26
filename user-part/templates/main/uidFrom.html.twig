@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block body %}
+    {% autoescape false %}
+    {{ header| raw }}<br>
+
+    {% endautoescape %}
+    {% if response %}
+        {{ response }}
+    {% endif %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Submit') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('main') }}">Main</a><br>
+    <a href="{{ path('activation') }}">Activation</a>
+{% endblock %}

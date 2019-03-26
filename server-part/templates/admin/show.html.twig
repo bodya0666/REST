@@ -1,0 +1,16 @@
+
+    {% for subscription in subscriptions %}
+    <tr>
+        <th scope="row">{{ subscription.id }}</th>
+        <td>{{ subscription.services.name }}</td>
+        <td>{{ subscription.userId }}</td>
+        <td>{{ subscription.dateStart|date }}  </td>
+        <td>{% if subscription.dateEnd %}{{ subscription.dateEnd|date }}{% else %}none{% endif %}</td>
+        <td>{% if subscription.status %}active{% else %}not active{% endif %}</td>
+        <td>{% if subscription.billing %}{{ subscription.billing }}${% else %}0{% endif %}</td>
+        <td>
+            <div onclick="request('{{ subscription.services.token }}', '{{ subscription.userId }}'), live()" class="btn">stop</div>
+        </td>
+    </tr>
+    {% endfor %}
+

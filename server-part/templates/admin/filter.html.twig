@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin') }}">Main</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Submit') }}</button>
+    {{ form_end(form) }}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Service</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Date start</th>
+            <th scope="col">Date end</th>
+            <th scope="col">Status</th>
+            <th scope="col">Billing</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody id="ajax-results">
+        {% for subscription in subscriptions %}
+            <tr>
+                <th scope="row">{{ subscription.id }}</th>
+                <td>{{ subscription.services.name }}</td>
+                <td>{{ subscription.userId }}</td>
+                <td>{{ subscription.dateStart|date }}</td>
+                <td>{% if subscription.dateEnd %}{{ subscription.dateEnd|date }}{% else %}none{% endif %}</td>
+                <td id="{{ subscription.id }}">{% if subscription.status %}active{% else %}not active{% endif %}</td>
+                <td>{{ subscription.billing }}</td>
+                <td>
+                    <div onclick="request('{{ subscription.services.token }}', '{{ subscription.userId }}', '{{ subscription.id }}')" class="btn">stop</div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function request (token, userId, status) {
+            $("#" + status).text("not active");
+            $.ajax({
+                url: "http://localhost:8001/subscription/stop", // куда отправляем
+                type: "post", // метод передачи
+                dataType: "json", // тип передачи данных
+                data:
+                    { // что отправляем
+                        json:
+                        {
+                            "token": token,
+                            "user_id": userId
+                        }
+                    },
+            });
+        }
+    </script>
+{% endblock %}

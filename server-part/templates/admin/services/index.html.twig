@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services index{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin') }}">Main</a>
+    <h1>Services index</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Token</th>
+                <th scope="col">Status</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td scope="row">{{ service.id }}</td>
+                <td>{{ service.name }}</td>
+                <td>{{ service.token }}</td>
+                <td>{{ service.status ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('services_show', {'id': service.id}) }}">show</a>
+                    <a href="{{ path('services_edit', {'id': service.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('services_new') }}">Create new</a>
+{% endblock %}

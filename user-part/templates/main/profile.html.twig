@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <a href="{{ path('main') }}">Main</a> | <a href="{{ path('deactivate') }}">Unsubscribe</a><br>
+   Date end: {{ end }}
+<h1>Billing:</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Action</th>
+            <th scope="col">Date</th>
+            <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for billing in billing %}
+        <tr>
+            <td>New billing</td>
+            <td>{{ billing.time }}</td>
+            <td>{{ billing.amount }}$</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

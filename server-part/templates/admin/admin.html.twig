@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}Main{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    <a href="{{ path('services_index') }}">Services</a> | <a href="{{ path('filter') }}">Search</a> | <a href="{{ path('request') }}">Request</a> | <a href="{{ path('notification') }}">Notification</a> |
+    <a href="{{ path('log') }}">Logs</a>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Service</th>
+        <th scope="col">User Id</th>
+        <th scope="col">Date start</th>
+        <th scope="col">Date end</th>
+        <th scope="col">Status</th>
+        <th scope="col">Billing</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody id="ajax-results">
+
+    </tbody>
+</table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+            function live() {
+                $('#ajax-results').load('{{ (path('app_bundle_route')) }}')
+            }
+            function request (token, userId) {
+            // var btn_more = $(this);
+            // btn_more.val('Подождите...');
+            $.ajax({
+                url: "http://localhost:8001/subscription/stop", // куда отправляем
+                type: "post", // метод передачи
+                dataType: "json", // тип передачи данных
+                data:
+                    { // что отправляем
+                        json: {
+                            "token": token,
+                            "user_id": userId
+                        }
+                    },
+            });
+         }
+        $(document).ready(function() {
+            live()
+        });
+        $(document).ready(function() {
+            setInterval(function () {
+                live()
+            }, 3000)
+        });
+    </script>
+{% endblock %}

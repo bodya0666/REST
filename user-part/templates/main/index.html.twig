@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Main{% endblock %}
+
+{% block body %}
+    <a href="{{ path('subscribe') }}">Subscribe</a> | <a href="{{ path('billing') }}">Billing</a> | <a href="{{ path('activation') }}">Activation</a> | <a href="{{ path('auth') }}">Profile</a> | <a href="{{ path('unsubscription') }}">Unsubscription</a>
+
+
+{% endblock %}

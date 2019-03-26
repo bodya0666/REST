@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin') }}">Main</a>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Message</th>
+        </tr>
+        </thead>
+        <tbody id="ajax-results">
+        {% for log in logs %}
+            <tr>
+                <th scope="row">{{ log.id }}</th>
+                <td>{{ log.timestamp|date }}</td>
+                <td>{{ log.message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

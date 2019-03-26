@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Request{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin') }}">Main</a>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Request</th>
+            <th scope="col">Response</th>
+            <th scope="col">Http status</th>
+            <th scope="col">Executing time</th>
+            <th scope="col">Operation</th>
+            <th scope="col">Subscription id</th>
+        </tr>
+        </thead>
+        <tbody id="ajax-results">
+        {% for request in requests %}
+            <tr>
+                <th scope="row">{{ request.id }}</th>
+                <td>{{ request.timestamp|date }}</td>
+                <td>{{ request.request }}</td>
+                <td>{{ request.response }}</td>
+                <td>{{ request.httpStatus }}</td>
+                <td>{{ request.execTime }}</td>
+                <td>{{ request.operation.name }}</td>
+                <td>{% if request.subscriptions %}{{ request.subscriptions.id }}{% else %}null{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
